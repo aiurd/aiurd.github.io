@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI API Service | The Future of AI Integration</title>
+
+    <!-- Google Fonts for a modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- All CSS styles are embedded directly in the head -->
+    <style>
+        /* General Setup and Variables */
+        :root {
+            --primary-color: #00ffff; /* Luminous cyan */
+            --secondary-color: #0d1a26; /* Dark background */
+            --text-color-light: #e0f7fa;
+            --text-color-faded: #a0a0a0;
+            --card-bg: #1a2a3a;
+            --border-color: rgba(0, 255, 255, 0.2);
+            --font-orbitron: 'Orbitron', sans-serif;
+            --font-poppins: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            color: var(--text-color-light);
+            font-family: var(--font-poppins);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #fff;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-orbitron);
+            text-align: center;
+        }
+
+        /* Header and Navigation */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(13, 26, 38, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .logo-text {
+            font-family: var(--font-orbitron);
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, #00ffff, #00bfff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .main-nav {
+            display: flex;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .main-nav a {
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+            color: var(--text-color-faded);
+            transition: all 0.3s ease;
+        }
+
+        .main-nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-color);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .main-nav a:hover {
+            color: var(--text-color-light);
+        }
+
+        .main-nav a:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            border: 2px solid var(--primary-color);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            background: transparent;
+            transition: background 0.3s ease, border-color 0.3s ease;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .btn-login:hover {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+        }
+        .btn-register {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+        }
+
+        .btn-register:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+            background-image: linear-gradient(rgba(13, 26, 38, 0.8), rgba(13, 26, 38, 0.8)),
+                              url('https://cdn-uploads.huggingface.co/production/uploads/66a11db96852bcd49974d334/0Qu_rVFGilSHXEG0fJ9CK.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .background-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to right, rgba(0,255,255,0.1) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            animation: pan-background 30s linear infinite;
+        }
+
+        @keyframes pan-background {
+            from { background-position: 0 0; }
+            to { background-position: -500px -500px; }
+        }
+
+        .hero-content {
+            margin-top: 5rem;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            background: linear-gradient(90deg, #00ffff, #00bfff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: var(--text-color-faded);
+        }
+
+        .cta-button {
+            font-family: var(--font-orbitron);
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: linear-gradient(45deg, #00ffff, #00bfff);
+            color: #000;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.7);
+        }
+
+        /* Pulse animation for the CTA button */
+        .pulse {
+            animation: pulse-animation 2s infinite;
+        }
+
+        @keyframes pulse-animation {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.4); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(0, 255, 255, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 255, 255, 0); }
+        }
+
+        /* Sections General Styling */
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ffff, #00bfff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            color: var(--text-color-faded);
+            text-align: center;
+        }
+
+        section {
+            padding: 6rem 5%;
+        }
+
+        /* Features Section */
+        .features-section {
+            text-align: center;
+        }
+
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .model-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .model-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(0, 255, 255, 0.1);
+            border: 2px solid var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .icon-wrapper::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+            opacity: 0.3;
+            animation: glow-pulse 3s infinite alternate;
+        }
+
+        .icon {
+            font-family: var(--font-orbitron);
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #fff, var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+
+        @keyframes glow-pulse {
+            from { transform: scale(0.8); opacity: 0.3; }
+            to { transform: scale(1.2); opacity: 0.5; }
+        }
+
+        .model-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .model-card p {
+            color: var(--text-color-faded);
+            text-align: center;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            text-align: center;
+        }
+
+        .pricing-table {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            font-family: var(--font-poppins);
+        }
+
+        .pricing-header, .pricing-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 1rem;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            align-items: center;
+        }
+
+        .pricing-header {
+            background: #0d1a26;
+            font-weight: bold;
+            color: var(--primary-color);
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .pricing-row:last-child {
+            border-bottom: none;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background-color: #0b151f;
+            text-align: center;
+            padding: 5rem 5%;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        .main-footer {
+            text-align: center;
+            padding: 2rem 5%;
+            background-color: var(--secondary-color);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: var(--text-color-faded);
+        }
+
+        .footer-links a {
+            margin: 0 1rem;
+            color: var(--text-color-faded);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .main-header {
+                flex-direction: column;
+                gap: 1rem;
+                position: static;
+                padding-bottom: 1rem;
+            }
+
+            .main-nav ul {
+                justify-content: center;
+                gap: 0.5rem;
+            }
+
+            .main-nav a {
+                padding: 0.5rem 0.8rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .pricing-header, .pricing-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="main-header">
+        <div class="logo">
+            <!-- Animated Logo SVG -->
+            <svg width="40" height="40" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" stroke="#00ffff" stroke-width="2" fill="none" opacity="0.5">
+                    <animate attributeName="r" from="45" to="50" dur="2s" begin="0s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="50" cy="50" r="30" stroke="#00ffff" stroke-width="2" fill="none" opacity="0.8">
+                    <animate attributeName="r" from="30" to="35" dur="2s" begin="1s" repeatCount="indefinite" />
+                </circle>
+                <text x="50" y="60" text-anchor="middle" font-family="Orbitron, sans-serif" font-size="28" fill="#fff">API</text>
+            </svg>
+            <span class="logo-text">AI Connect</span>
+        </div>
+        <nav class="main-nav">
+            <!-- Navigation links will be dynamically generated here by JS -->
+            <ul id="main-nav-links">
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <a href="https://api.jlhs.me/login" class="btn btn-login">登录</a>
+            <a href="https://api.jlhs.me/register" class="btn btn-register">注册</a>
+        </div>
+    </header>
+
+    <!-- Main Hero Section with animated background -->
+    <main class="hero-section">
+        <div class="background-grid"></div>
+        <div class="hero-content">
+            <h1>连接未来，一键接入顶级AI模型</h1>
+            <p>通过单一API，无缝集成Gemini和GPT系列模型，为您的应用注入强大动力。</p>
+            <a href="https://api.jlhs.me/playground" class="cta-button pulse">立即获取API密钥</a>
+        </div>
+    </main>
+
+    <!-- Features Section - Models supported -->
+    <section id="features" class="features-section">
+        <h2 class="section-title">支持的 AI 模型</h2>
+        <p class="section-subtitle">通过统一接口，访问业界最强大的语言模型。</p>
+        <!-- Model cards will be dynamically generated here by JS -->
+        <div id="features-models-grid" class="model-grid">
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing-section">
+        <h2 class="section-title">透明定价</h2>
+        <p class="section-subtitle">按量付费，无隐藏费用。只为您使用的部分付费。</p>
+        <div class="pricing-table">
+            <div class="pricing-header">
+                <span>模型</span>
+                <span>输入 (每千Tokens)</span>
+                <span>输出 (每千Tokens)</span>
+            </div>
+            <!-- Pricing rows will be dynamically generated here by JS -->
+            <div id="pricing-table-body">
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>准备好构建了吗？</h2>
+            <p>加入成千上万的开发者，共同构建 AI 的未来。几分钟内即可开始。</p>
+            <a href="https://api.jlhs.me/playground" class="cta-button pulse">立即开始构建</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <p>&copy; 2025 AI Connect. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">服务条款</a>
+            <a href="#">隐私政策</a>
+        </div>
+    </footer>
+
+    <!-- All JavaScript is embedded directly in a script tag -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 数据定义：所有模型及其详细信息
+            const ALL_MODELS = [
+                // Gemini 模型
+                { name: "Gemini 2.5 Pro", model: "gemini-2.5-pro", icon: "G", description: "强大的多模态能力，处理复杂推理和创意任务的理想选择。", pricing: { input: "$0.0035", output: "$0.0105" } },
+                { name: "Gemini 2.5 Flash", model: "gemini-2.5-flash", icon: "G", description: "极速响应，低成本，适用于高频、大规模应用场景。", pricing: { input: "$0.0001", output: "$0.0001" } },
+                { name: "Gemini 2.5 Flash-Lite", model: "gemini-2.5-flash-lite", icon: "G", description: "最具成本效益且支持高吞吐量的模型。", pricing: { input: "$0.00005", output: "$0.00005" } },
+                { name: "Gemini 2.5 Flash Live", model: "gemini-live-2.5-flash-preview", icon: "G", description: "低延迟的双向语音和视频互动。", pricing: { input: "$0.0002", output: "$0.0002" } },
+                { name: "Gemini 2.5 Flash 原生音频", model: "gemini-2.5-flash-preview-native-audio-dialog", icon: "G", description: "高质量、自然的对话式音频输出。", pricing: { input: "$0.0003", output: "$0.0003" } },
+                { name: "Gemini 2.5 Flash 预览版 TTS", model: "gemini-2.5-flash-preview-tts", icon: "G", description: "低延迟、可控的单语音和多语音文字转语音音频生成。", pricing: { input: "$0.00015", output: "$0.00015" } },
+                { name: "Gemini 2.5 Pro 预览版 TTS", model: "gemini-2.5-pro-preview-tts", icon: "G", description: "低延迟、可控的单语音和多语音文字转语音音频生成。", pricing: { input: "$0.004", output: "$0.012" } },
+                { name: "Gemini 2.0 Flash", model: "gemini-2.0-flash", icon: "G", description: "新一代功能、速度和实时流式传输。", pricing: { input: "$0.0001", output: "$0.0001" } },
+                { name: "Gemini 2.0 Flash 预览版图片生成", model: "gemini-2.0-flash-preview-image-generation", icon: "G", description: "对话式图片生成和编辑。", pricing: { input: "$0.0008", output: "$0.0008" } },
+                { name: "Gemini 2.0 Flash-Lite", model: "gemini-2.0-flash-lite", icon: "G", description: "成本效益和低延迟。", pricing: { input: "$0.00005", output: "$0.00005" } },
+                { name: "Gemini 2.0 Flash Live", model: "gemini-2.0-flash-live-001", icon: "G", description: "低延迟的双向语音和视频互动。", pricing: { input: "$0.0002", output: "$0.0002" } },
+                { name: "Gemini 1.5 Flash", model: "gemini-1.5-flash", icon: "G", description: "在各种任务中提供快速而多样的性能。", pricing: { input: "$0.0001", output: "$0.0001" } },
+                { name: "Gemini 1.5 Flash-8B", model: "gemini-1.5-flash-8b", icon: "G", description: "量大且智能程度较低的任务。", pricing: { input: "$0.00005", output: "$0.00005" } },
+                { name: "Gemini 1.5 Pro", model: "gemini-1.5-pro", icon: "G", description: "需要更高智能的复杂推理任务。", pricing: { input: "$0.0035", output: "$0.0105" } },
+                // GPT 模型
+                { name: "GPT-3.5-Turbo", model: "gpt-3.5-turbo", icon: "GPT", description: "成熟稳定，高效处理日常文本生成与问答任务。", pricing: { input: "$0.0005", output: "$0.0015" } },
+                { name: "GPT-4o 系列", model: "gpt-4o", icon: "GPT", description: "新一代多模态智能，性能卓越，全方位表现非凡。", pricing: { input: "$0.005", output: "$0.015" } },
+            ];
+
+            // 数据定义：所有子页面链接
+            const SUB_PAGES = [
+                { name: "功能", url: "#features" },
+                { name: "定价", url: "#pricing" },
+                { name: "文档", url: "#" },
+                { name: "游乐场", url: "https://api.jlhs.me/playground" },
+                { name: "令牌", url: "https://api.jlhs.me/token" },
+                { name: "充值", url: "https://api.jlhs.me/topup" },
+                { name: "日志", url: "https://api.jlhs.me/log" },
+                { name: "数据看板", url: "https://api.jlhs.me/detail" },
+                { name: "Midjourney", url: "https://api.jlhs.me/midjourney" },
+                { name: "任务", url: "https://api.jlhs.me/task" },
+                { name: "设置", url: "https://api.jlhs.me/setting" }
+            ];
+
+            // 动态生成导航链接
+            const navLinksContainer = document.getElementById('main-nav-links');
+            if (navLinksContainer) {
+                SUB_PAGES.forEach(page => {
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = page.url;
+                    link.textContent = page.name;
+                    listItem.appendChild(link);
+                    navLinksContainer.appendChild(listItem);
+                });
+            }
+
+            // 动态生成模型卡片
+            const modelsGrid = document.getElementById('features-models-grid');
+            if (modelsGrid) {
+                // 筛选出在功能区展示的模型 (例如：Gemini Pro, Gemini Flash, GPT-3.5, GPT-4o)
+                const featuredModels = [
+                    "gemini-2.5-pro", "gemini-2.5-flash", "gpt-3.5-turbo", "gpt-4o"
+                ];
+
+                ALL_MODELS.filter(model => featuredModels.includes(model.model))
+                .forEach(model => {
+                    const card = document.createElement('div');
+                    card.className = 'model-card';
+                    card.innerHTML = `
+                        <div class="icon-wrapper">
+                            <span class="icon">${model.icon}</span>
+                        </div>
+                        <h3>${model.name}</h3>
+                        <p>${model.description}</p>
+                    `;
+                    modelsGrid.appendChild(card);
+                });
+            }
+
+            // 动态生成定价表格
+            const pricingTableBody = document.getElementById('pricing-table-body');
+            if (pricingTableBody) {
+                // 将所有模型都加入定价表格
+                ALL_MODELS.forEach(model => {
+                    const row = document.createElement('div');
+                    row.className = 'pricing-row';
+                    row.innerHTML = `
+                        <span>${model.name}</span>
+                        <span>${model.pricing.input}</span>
+                        <span>${model.pricing.output}</span>
+                    `;
+                    pricingTableBody.appendChild(row);
+                });
+            }
+            
+            // --- 页面动画和滚动效果 ---
+            // 滚动到顶部功能
+            const heroSection = document.querySelector('.hero-section');
+            const logo = document.querySelector('.logo');
+            if (logo && heroSection) {
+                logo.addEventListener('click', () => {
+                    heroSection.scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
